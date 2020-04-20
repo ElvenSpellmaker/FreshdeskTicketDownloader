@@ -1,0 +1,25 @@
+{
+	"require": {
+		"league/csv": "^9.6",
+		"guzzlehttp/guzzle": "^6.5"
+	},
+	"require-dev": {
+		"ve-interactive/php-sniffer-rules": "^2.0.0",
+		"ve-interactive/php-mess-detector": "^2.0.0"
+	},
+	"autoload": {
+		"psr-4": {
+			"ElvenSpellmaker\\Freshdesk\\": "src/"
+		}
+	},
+	"repositories": [
+		{
+			"type": "vcs",
+			"url": "git@github.com:ve-interactive/PhpSnifferRules"
+		},
+		{
+			"type": "vcs",
+			"url": "git@github.com:ve-global/VeMessDetector"
+		}
+	]
+}

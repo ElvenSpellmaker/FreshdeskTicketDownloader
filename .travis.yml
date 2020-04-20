@@ -1,0 +1,23 @@
+language: php
+
+php:
+  - '7.3'
+  - '7.4'
+  - hhvm
+  - nightly
+
+before_install:
+  - git config --global github.accesstoken $GITHUB_OAUTH_TOKEN
+  - composer config github-oauth.github.com $GITHUB_OAUTH_TOKEN
+
+install: composer install --no-interaction
+
+matrix:
+  allow_failures:
+    - php: hhvm
+    - php: nightly
+  fast_finish: true
+
+script:
+  - ./vendor/bin/phpcs --standard=bin/phpcs.xml src/
+  - ./vendor/bin/phpmd src/ text bin/phpmd.xml

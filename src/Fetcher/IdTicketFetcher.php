@@ -28,7 +28,7 @@ class IdTicketFetcher extends AbstractFetcher
 		{
 			$results[] = $this->getTicketDataFromFreshdesk($id);
 
-			echo 'Fetching results from Freshdesk (' . $id . '): ', $runningTotal++, '/', $total, "\n";
+			$this->logger->info('Fetching results from Freshdesk (' . $id . '): ' . $runningTotal++ . '/' . $total);
 		}
 
 		return $results;

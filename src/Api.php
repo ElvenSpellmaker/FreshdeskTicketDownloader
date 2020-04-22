@@ -30,6 +30,11 @@ class Api
 	private $apiKey;
 
 	/**
+	 * @var string
+	 */
+	private $baseUrl;
+
+	/**
 	 * @var Client
 	 */
 	private $guzzleClient;
@@ -38,13 +43,13 @@ class Api
 	 * @param string $companyName
 	 * @param string $apiKey
 	 */
-	public function __construct(string $companyName, string $apiKey)
+	public function __construct(string $companyName, string $apiKey, Client $client)
 	{
 		$this->apiKey = $apiKey;
 
-		$baseUrl = sprintf(self::BASE_URL, $companyName);
+		$this->baseUrl = sprintf(self::BASE_URL, $companyName);
 
-		$this->guzzleClient = new Client(['base_uri' => $baseUrl, 'debug' => false]);
+		$this->guzzleClient = $client;
 	}
 
 	/**
@@ -114,6 +119,8 @@ class Api
 	private function performRequest(string $url, array $query = []) : string
 	{
 		$response = $this->guzzleClient->get($url, [
+			'base_uri' => $this->baseUrl,
+			'debug' => false,
 			'auth' => [
 				$this->apiKey,
 				'', // No password needed, API key is enough.

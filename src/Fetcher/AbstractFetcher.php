@@ -6,6 +6,7 @@ use Closure;
 use DateInterval;
 use ElvenSpellmaker\Freshdesk\Api;
 use GuzzleHttp\Exception\RequestException;
+use Psr\Log\LoggerInterface;
 
 /**
  * Houses Base logic for a Freshdesk Fetcher.
@@ -18,6 +19,11 @@ abstract class AbstractFetcher
 	protected $api;
 
 	/**
+	 * @var LoggerInterface
+	 */
+	protected $logger;
+
+	/**
 	 * @var DateInterval
 	 */
 	protected $dateInterval;
@@ -25,9 +31,10 @@ abstract class AbstractFetcher
 	/**
 	 * @param Api $api
 	 */
-	public function __construct(Api $api)
+	public function __construct(Api $api, LoggerInterface $logger)
 	{
 		$this->api = $api;
+		$this->logger = $logger;
 		$this->dateInterval = new DateInterval('P1D');
 	}
 
@@ -39,6 +46,8 @@ abstract class AbstractFetcher
 	 *
 	 * @return array
 	 *
+	 * @throws RequestException
+	 *
 	 * @SuppressWarnings(PHPMD.ExitExpression)
 	 */
 	protected function getDataWrapper(Closure $fetchFunction) : array
@@ -49,8 +58,9 @@ abstract class AbstractFetcher
 		}
 		catch (RequestException $e)
 		{
-			echo $e->getResponse()->getBody();
-			exit;
+			$this->logger->info($e->getResponse()->getBody());
+
+			throw $e;
 		}
 
 		return json_decode($result, true);

@@ -3,3 +3,4 @@ config.local.php
 *.csv
 bin/sca/phpmd.html
 bin/sca/phpcs.txt
+coverage/

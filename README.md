@@ -1,4 +1,4 @@
-Freshdesk Ticket Downloader [![Build Status](https://travis-ci.com/ElvenSpellmaker/FreshdeskTicketDownloader.svg?branch=add%2Fcode)](https://travis-ci.com/ElvenSpellmaker/FreshdeskTicketDownloader)
+Freshdesk Ticket Downloader [![Build Status](https://travis-ci.com/ElvenSpellmaker/FreshdeskTicketDownloader.svg?branch=master)](https://travis-ci.com/ElvenSpellmaker/FreshdeskTicketDownloader)
 ===========================
 This is a small project which can download Freshdesk tickets and conversations
 on Tickets based on a date or a list of IDs.

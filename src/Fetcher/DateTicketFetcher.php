@@ -26,10 +26,14 @@ class DateTicketFetcher extends AbstractFetcher
 	 */
 	public function fetchTicketDataInPeriod(string $startDate, string $endDate) : array
 	{
+		// Ensure end date is included.
+		$endDate = new DateTime($endDate);
+		$endDate->add($this->dateInterval);
+
 		$datePeriod = new DatePeriod(
 			new DateTime($startDate),
 			$this->dateInterval,
-			new DateTime($endDate),
+			$endDate,
 		);
 
 		$results = [];
@@ -65,7 +69,7 @@ class DateTicketFetcher extends AbstractFetcher
 
 			$results = array_merge($results, $result['results']);
 
-			echo 'Fetching results from Freshdesk (' . $startDate . '): ', $runningTotal, '/', $result['total'], "\n";
+			$this->logger->info('Fetching results from Freshdesk (' . $startDate . '): ' . $runningTotal . '/' . $result['total']);
 		}
 		while ($runningTotal !== $result['total']);
 
@@ -75,7 +79,7 @@ class DateTicketFetcher extends AbstractFetcher
 	/**
 	 * Given a start and end date, fetches a page of Freshdesk data.
 	 *
- * Returns the JSON decoded data as an array.
+	 * Returns the JSON decoded data as an array.
 	 *
 	 * @param string $startDate
 	 * @param string $endDate

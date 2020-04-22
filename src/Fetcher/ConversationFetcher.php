@@ -29,7 +29,7 @@ class ConversationFetcher extends AbstractFetcher
 
 			$total = count($results);
 
-			echo 'Fetching results from Freshdesk Total: ', $total, "\n";
+			$this->logger->info('Fetching results from Freshdesk: Total: ' . $total);
 		}
 
 		return $results;
@@ -54,9 +54,9 @@ class ConversationFetcher extends AbstractFetcher
 
 			$results = array_merge($results, $result);
 
-			$total += count($results);
+			$total += count($result);
 
-			echo 'Fetching results from Freshdesk (Ticket ID: ' . $ticketId . '): ', $total, "\n";
+			$this->logger->info('Fetching results from Freshdesk (Ticket ID: ' . $ticketId . '): New: ' . count($result) . ', Total: ' . $total);
 		}
 		while (count($result));
 

@@ -19,5 +19,6 @@ matrix:
   fast_finish: true
 
 script:
+  - ./vendor/bin/phpunit test/
   - ./vendor/bin/phpcs --standard=bin/phpcs.xml src/
   - ./vendor/bin/phpmd src/ text bin/phpmd.xml

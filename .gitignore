@@ -4,3 +4,5 @@ config.local.php
 bin/sca/phpmd.html
 bin/sca/phpcs.txt
 coverage/
+clover.xml
+coveralls-upload.json

@@ -10,7 +10,7 @@ before_install:
   - git config --global github.accesstoken $GITHUB_OAUTH_TOKEN
   - composer config github-oauth.github.com $GITHUB_OAUTH_TOKEN
 
-install: composer install --no-interaction
+install: travis_retry composer install --no-interaction
 
 matrix:
   allow_failures:
@@ -19,6 +19,7 @@ matrix:
   fast_finish: true
 
 script:
-  - ./vendor/bin/phpunit test/
   - ./vendor/bin/phpcs --standard=bin/phpcs.xml src/
   - ./vendor/bin/phpmd src/ text bin/phpmd.xml
+  - ./vendor/bin/phpunit --coverage-clover clover.xml --whitelist src/ test/
+  - travis_retry ./vendor/bin/php-coveralls
